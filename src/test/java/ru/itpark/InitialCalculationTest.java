@@ -1,49 +1,20 @@
 package ru.itpark;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InitialCalculationTest {
 
-    @Test
-    public void initialCalculationTwoWordsName() {
+    @ParameterizedTest
+    @CsvFileSource(resources = "/initials.csv", numLinesToSkip = 1)
+    void getInitials(String input, String expected) {
         InitialCalculation service = new InitialCalculation();
-        String name = "Ivan Petrov";
 
-        String actual = service.getInitials(name);
+        String actual = service.getInitials(input);
 
-        assertEquals("IP", actual);
-    }
-
-    @Test
-    public void initialCalculationThreeWordsName() {
-        InitialCalculation service = new InitialCalculation();
-        String name = "Huan Pedro Rodriges";
-
-        String actual = service.getInitials(name);
-
-        assertEquals("HR", actual);
-    }
-
-    @Test
-    public void initialCalculationOneWordName() {
-        InitialCalculation service = new InitialCalculation();
-        String name = "Ivan";
-
-        String actual = service.getInitials(name);
-
-        assertEquals("I", actual);
-    }
-
-    @Test
-    public void initialCalculationTwoWordsNameSmall() {
-        InitialCalculation service = new InitialCalculation();
-        String name = "ivan petrov";
-
-        String actual = service.getInitials(name);
-
-        assertEquals("IP", actual);
-
+        assertEquals(expected, actual);
     }
 }
